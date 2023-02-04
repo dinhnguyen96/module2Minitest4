@@ -13,21 +13,21 @@ public class EmployeeManager {
 
     private List<Employee> employeeList;
 
-    private Set<Long> idEmployeeSet;
+    private Set<Long> employeeIdSet;
 
-    private Set<String> codeEmployeeSet;
+    private Set<String> employeeCodeSet;
 
 
     public EmployeeManager()
     {
         employeeList = new ArrayList<>();
-        idEmployeeSet = new HashSet<>();
-        codeEmployeeSet = new HashSet<>();
+        employeeIdSet = new HashSet<>();
+        employeeCodeSet = new HashSet<>();
     }
 
     public boolean employeeExitsCheck(Long id, String code)
     {
-       if (idEmployeeSet.contains(id) || codeEmployeeSet.contains(code))
+       if (employeeIdSet.contains(id) || employeeCodeSet.contains(code))
        {
            return true;
        }
@@ -37,8 +37,8 @@ public class EmployeeManager {
     public void addEmployee(Employee employee)
     {
         employeeList.add(employee);
-        codeEmployeeSet.add(employee.getCode());
-        idEmployeeSet.add(employee.getId());
+        employeeCodeSet.add(employee.getCode());
+        employeeIdSet.add(employee.getId());
     }
 
     public String employeeListDisplay()
