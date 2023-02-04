@@ -1,13 +1,16 @@
 package model;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class EmployeePartTime extends Employee
 {
     private double workHour;
 
-
-    public EmployeePartTime(Long id, String code, String name, int age, String phone, String email, double workHour) {
-        super(id, code,name, age, phone, email);
-        this.workHour = workHour;
+    public EmployeePartTime()
+    {
+        super();
+        this.workHour = 0;
     }
 
     public double getWorkHour() {
@@ -19,7 +22,24 @@ public class EmployeePartTime extends Employee
     }
 
     @Override
-    public double realSalary() {
+    public void employeeInfoInput()
+    {
+        try
+        {
+            super.employeeInfoInput();
+            Scanner input = new Scanner(System.in);
+            System.out.print("Work Hour = ");
+            this.workHour = Double.parseDouble(input.next());
+            System.out.println();
+        }
+        catch (InputMismatchException | NumberFormatException e)
+        {
+            System.out.println("Nhập dữ liệu không hợp lệ !");
+        }
+    }
+
+    @Override
+    public double getRealSalary() {
         return getWorkHour() * 100000;
     }
 }

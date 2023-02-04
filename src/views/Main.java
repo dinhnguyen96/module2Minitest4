@@ -3,12 +3,55 @@ package views;
 import controller.EmployeeManager;
 import model.Employee;
 import model.EmployeeFullTime;
+import model.EmployeePartTime;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
-
     public static EmployeeManager employeeManager = new EmployeeManager();
+
+    public static void dataInput()
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Nhập số lượng nhân viên : ");
+        int n = input.nextInt();
+        for (int i = 0; i < n;)
+        {
+            Employee employee = null;
+            Long id = 0L; String code = "";
+            System.out.println("Nhập thông tin nhân viên thứ "+i+" : ");
+            System.out.println("Loại nhân viên");
+            System.out.println("1.Nhân viên toàn thời gian");
+            System.out.println("2.Nhân viên bán thời gian");
+            String type = input.next();
+            switch (type)
+            {
+                case "1":
+                    employee = new EmployeeFullTime();
+                    employee.employeeInfoInput();
+                    id = employee.getId();
+                    code = employee.getCode();
+                    break;
+                case "2":
+                    employee = new EmployeePartTime();
+                    employee.employeeInfoInput();
+                    id = employee.getId();
+                    code = employee.getCode();
+                    break;
+            }
+            boolean exitsChecked = employeeManager.employeeExitsCheck(id, code);
+
+            if (employee != null)
+            {
+                if (!exitsChecked)
+                {
+                    employeeManager.addEmployee(employee);
+                    i++;
+                }
+            }
+        }
+    }
 
     public static void employeeListDisplay()
     {
@@ -52,6 +95,7 @@ public class Main {
 
     public static void testProgram()
     {
+        dataInput();
         employeeListDisplay();
         employeeFullTimeListSalarylessAverageDisplay();
         System.out.println();
@@ -62,6 +106,6 @@ public class Main {
 
     public static void main(String[] args)
     {
-          testProgram();
+        testProgram();
     }
 }

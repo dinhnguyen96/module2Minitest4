@@ -5,9 +5,7 @@ import model.EmployeeFullTime;
 import model.EmployeePartTime;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EmployeeManager {
 
@@ -16,21 +14,23 @@ public class EmployeeManager {
     public EmployeeManager()
     {
         employeeList = new ArrayList<>();
-        employeeList.add(new EmployeePartTime(1L,"12DH110544","Trần Văn Tùng",
-                      23,"0941904792", "tranvantung2005@gmnail.com", 10));
-        employeeList.add(new EmployeePartTime(2L,"12DH110522","Nguyễn Quang Huy",
-                20,"0945417915", "quanghuy1005@gmnail.com", 8));
-        employeeList.add(new EmployeePartTime(3L,"12DH110521","Phan Công Thông",
-                21,"0947888256", "congthong0506@gmnail.com", 30));
-        employeeList.add(new EmployeeFullTime(4L,"12DH110585","Nguyễn Đình Nguyên",
-                27,"0952444922", "nguyendinhnguyen2510@gmail.com",
-                       3000000,15000000,500000));
-        employeeList.add(new EmployeeFullTime(5L,"12DH110530","Nguyễn Ngọc Anh",
-                25,"0942853114", "nguyenngocanh0505@gmail.com",
-                3000000,1000000,500000));
-        employeeList.add(new EmployeeFullTime(6L,"12DH110585","Nguyễn Thị Nhung",
-                26,"0941504282", "nguyenthinhung2510@gmail.com",
-                7000000,1000000,250000));
+    }
+
+    public boolean employeeExitsCheck(Long id, String code)
+    {
+        for (Employee employee : employeeList)
+        {
+           if (employee.getId() == id || employee.getCode().equalsIgnoreCase(code))
+           {
+               return true;
+           }
+        }
+        return false;
+    }
+
+    public void addEmployee(Employee employee)
+    {
+        employeeList.add(employee);
     }
 
     public String employeeListDisplay()
@@ -48,7 +48,7 @@ public class EmployeeManager {
 
         for (Employee employee : employeeList)
         {
-           salarySum += employee.realSalary();
+           salarySum += employee.getRealSalary();
         }
 
         return salarySum / employeeList.size();
@@ -59,7 +59,7 @@ public class EmployeeManager {
         double salaryAverage = salaryAverage();
         for (Employee employee : employeeList)
         {
-            if (employee instanceof EmployeeFullTime && employee.realSalary() < salaryAverage)
+            if (employee instanceof EmployeeFullTime && employee.getRealSalary() < salaryAverage)
             {
                 result += employee.getCode() + " "+ employee.getName()+" "+employee.getAge()+"\n";
             }
@@ -73,7 +73,7 @@ public class EmployeeManager {
         {
             if (employee instanceof EmployeePartTime)
             {
-                employeePartimeSalary += employee.realSalary();
+                employeePartimeSalary += employee.getRealSalary();
             }
         }
         return employeePartimeSalary;
@@ -84,11 +84,11 @@ public class EmployeeManager {
         {
             if (employee1 instanceof EmployeeFullTime && employee2 instanceof EmployeeFullTime)
             {
-                if (employee1.realSalary() > employee2.realSalary())
+                if (employee1.getRealSalary() > employee2.getRealSalary())
                 {
                     return 1;
                 }
-                else if (employee1.realSalary() < employee2.realSalary())
+                else if (employee1.getRealSalary() < employee2.getRealSalary())
                 {
                     return -1;
                 }

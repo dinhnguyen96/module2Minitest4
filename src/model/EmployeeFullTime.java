@@ -1,5 +1,8 @@
 package model;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class EmployeeFullTime extends Employee
 {
     private double salary;
@@ -7,12 +10,12 @@ public class EmployeeFullTime extends Employee
     private double violationMoney;
 
 
-    public EmployeeFullTime(Long id, String code, String name,int age, String phone, String email, double salary, double bonusMoney, double violationMoney)
+    public EmployeeFullTime()
     {
-        super(id, code, name, age, phone, email);
-        this.salary = salary;
-        this.bonusMoney = bonusMoney;
-        this.violationMoney = violationMoney;
+        super();
+        this.salary = 0;
+        this.bonusMoney = 0;
+        this.violationMoney = 0;
     }
 
     public double getSalary() {
@@ -26,21 +29,39 @@ public class EmployeeFullTime extends Employee
     public double getBonusMoney() {
         return bonusMoney;
     }
-
     public void setBonusMoney(double bonusMoney) {
         this.bonusMoney = bonusMoney;
     }
-
     public double getViolationMoney() {
         return violationMoney;
     }
-
     public void setViolationMoney(double violationMoney) {
         this.violationMoney = violationMoney;
     }
+    @Override
+    public void employeeInfoInput()
+    {
+        try
+        {
+            super.employeeInfoInput();
+            Scanner input = new Scanner(System.in);
+            System.out.print("Salary = ");
+            this.salary = Double.parseDouble(input.nextLine());
+            System.out.print("Bonus Money = ");
+            this.bonusMoney = Double.parseDouble(input.nextLine());
+            System.out.print("Violation Money = ");
+            this.violationMoney = Double.parseDouble(input.nextLine());
+            System.out.println();
+        }
+        catch (InputMismatchException | NumberFormatException e)
+        {
+            System.out.println("Nhập dữ liệu không hợp lệ !");
+        }
+
+    }
 
     @Override
-    public double realSalary()
+    public double getRealSalary()
     {
         return getSalary() + (getBonusMoney()-getViolationMoney());
     }

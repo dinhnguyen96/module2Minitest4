@@ -1,5 +1,8 @@
 package model;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public abstract class Employee
 {
     private Long id;
@@ -10,14 +13,14 @@ public abstract class Employee
     private String phone;
     private String email;
 
-    protected Employee(Long id, String code, String name, int age, String phone, String email)
+    protected Employee()
     {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.age = age;
-        this.phone = phone;
-        this.email = email;
+        this.id = 0L;
+        this.code = "";
+        this.name = "";
+        this.age = 0;
+        this.email = "";
+        this.phone = "";
     }
 
     public Long getId() {
@@ -68,5 +71,25 @@ public abstract class Employee
         this.email = email;
     }
 
-    public abstract double realSalary();
+    public void employeeInfoInput()
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Id = ");
+        this.id = Long.parseLong(input.next());
+        System.out.print("Code = ");
+        this.code = input.next();
+        input = new Scanner(System.in);
+        System.out.print("Name = ");
+        this.name = input.nextLine();
+        input = new Scanner(System.in);
+        System.out.print("Age = ");
+        this.age = Integer.parseInt(input.next());
+        System.out.print("Phone = ");
+        this.phone = input.next();
+        input = new Scanner(System.in);
+        System.out.print("Email = ");
+        this.email = input.next();
+    }
+
+    public abstract double getRealSalary();
 }
