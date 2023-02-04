@@ -19,7 +19,7 @@ public class Main {
         for (int i = 0; i < n;)
         {
             Employee employee = null;
-            Long id = 0L; String code = "";
+            boolean exitsChecked = false;
             System.out.println("Nhập thông tin nhân viên thứ "+i+" : ");
             System.out.println("Loại nhân viên");
             System.out.println("1.Nhân viên toàn thời gian");
@@ -30,25 +30,23 @@ public class Main {
                 case "1":
                     employee = new EmployeeFullTime();
                     employee.employeeInfoInput();
-                    id = employee.getId();
-                    code = employee.getCode();
+                    exitsChecked = employeeManager.employeeExitsCheck(employee.getId(), employee.getCode());
+                    if (!exitsChecked)
+                    {
+                        employeeManager.addEmployee(employee);
+                        i++;
+                    }
                     break;
                 case "2":
                     employee = new EmployeePartTime();
                     employee.employeeInfoInput();
-                    id = employee.getId();
-                    code = employee.getCode();
+                    exitsChecked = employeeManager.employeeExitsCheck(employee.getId(), employee.getCode());
+                    if (!exitsChecked)
+                    {
+                        employeeManager.addEmployee(employee);
+                        i++;
+                    }
                     break;
-            }
-            boolean exitsChecked = employeeManager.employeeExitsCheck(id, code);
-
-            if (employee != null)
-            {
-                if (!exitsChecked)
-                {
-                    employeeManager.addEmployee(employee);
-                    i++;
-                }
             }
         }
     }
