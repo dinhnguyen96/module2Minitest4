@@ -5,32 +5,40 @@ import model.EmployeeFullTime;
 import model.EmployeePartTime;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class EmployeeManager {
 
     private List<Employee> employeeList;
 
+    private Set<Long> idEmployeeSet;
+
+    private Set<String> codeEmployeeSet;
+
+
     public EmployeeManager()
     {
         employeeList = new ArrayList<>();
+        idEmployeeSet = new HashSet<>();
+        codeEmployeeSet = new HashSet<>();
     }
 
     public boolean employeeExitsCheck(Long id, String code)
     {
-        for (Employee employee : employeeList)
-        {
-           if (employee.getId() == id || employee.getCode().equalsIgnoreCase(code))
-           {
-               return true;
-           }
-        }
-        return false;
+       if (idEmployeeSet.contains(id) || codeEmployeeSet.contains(code))
+       {
+           return true;
+       }
+       return false;
     }
 
     public void addEmployee(Employee employee)
     {
         employeeList.add(employee);
+        codeEmployeeSet.add(employee.getCode());
+        idEmployeeSet.add(employee.getId());
     }
 
     public String employeeListDisplay()
