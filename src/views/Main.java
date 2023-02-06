@@ -18,8 +18,8 @@ public class Main {
         int n = input.nextInt();
         for (int i = 0; i < n;)
         {
-            Employee employee = null;
-            boolean exitsChecked = false;
+            Employee employee;
+            boolean exitsChecked;
             System.out.println("Nhập thông tin nhân viên thứ "+i+" : ");
             System.out.println("Loại nhân viên");
             System.out.println("1.Nhân viên toàn thời gian");
