@@ -41,23 +41,28 @@ public class EmployeeFullTime extends Employee
     @Override
     public void employeeInfoInput()
     {
-        try
+        boolean result = false;
+        do
         {
-            super.employeeInfoInput();
-            Scanner input = new Scanner(System.in);
-            System.out.print("Salary = ");
-            this.salary = Double.parseDouble(input.nextLine());
-            System.out.print("Bonus Money = ");
-            this.bonusMoney = Double.parseDouble(input.nextLine());
-            System.out.print("Violation Money = ");
-            this.violationMoney = Double.parseDouble(input.nextLine());
-            System.out.println();
+            try
+            {
+                super.employeeInfoInput();
+                Scanner input = new Scanner(System.in);
+                System.out.print("Salary = ");
+                this.salary = Double.parseDouble(input.nextLine());
+                System.out.print("Bonus Money = ");
+                this.bonusMoney = Double.parseDouble(input.nextLine());
+                System.out.print("Violation Money = ");
+                this.violationMoney = Double.parseDouble(input.nextLine());
+                System.out.println();
+                result = true;
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println("Nhập dữ liệu không hợp lệ !");
+            }
         }
-        catch (InputMismatchException | NumberFormatException e)
-        {
-            System.out.println("Nhập dữ liệu không hợp lệ !");
-        }
-
+        while (!result);
     }
 
     @Override

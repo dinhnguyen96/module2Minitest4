@@ -24,20 +24,24 @@ public class EmployeePartTime extends Employee
     @Override
     public void employeeInfoInput()
     {
-        try
-        {
-            super.employeeInfoInput();
-            Scanner input = new Scanner(System.in);
-            System.out.print("Work Hour = ");
-            this.workHour = Double.parseDouble(input.next());
-            System.out.println();
+        boolean result = false;
+        do {
+            try
+            {
+                super.employeeInfoInput();
+                Scanner input = new Scanner(System.in);
+                System.out.print("Work Hour = ");
+                this.workHour = Double.parseDouble(input.next());
+                System.out.println();
+                result = true;
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println("Nhập dữ liệu không hợp lệ !");
+            }
         }
-        catch (InputMismatchException | NumberFormatException e)
-        {
-            System.out.println("Nhập dữ liệu không hợp lệ !");
-        }
+        while (!result);
     }
-
     @Override
     public double getRealSalary() {
         return getWorkHour() * 100000;
